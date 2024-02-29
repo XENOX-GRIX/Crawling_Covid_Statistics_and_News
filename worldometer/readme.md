@@ -63,3 +63,8 @@ Input Instruction -
 		01-01-2021
 		1-1-2021
 		
+
+
+
+-----------------------------------------------------------------------------------------------------
+Run t1.py to generate result_1a.txt that is stored in tab seperated way
