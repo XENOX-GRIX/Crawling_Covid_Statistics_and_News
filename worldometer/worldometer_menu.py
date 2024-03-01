@@ -266,8 +266,6 @@ def generate_files(file):
                 f.write("\n")
             f.close
 
-
-
 if __name__ == '__main__':
     if not os.path.exists("./HTML"):
         os.mkdir("./HTML")
