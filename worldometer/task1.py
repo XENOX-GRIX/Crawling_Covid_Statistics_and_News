@@ -1,13 +1,14 @@
 import ply.lex as lex
 import ply.yacc as yacc
-import requests
+from urllib.request import Request, urlopen
 import re
 import os
 import sys
 
 def get_page_content(url):
-    r = requests.get(url)
-    html_text = r.text
+    req = Request(url,headers ={'User-Agent':'Mozilla/5.0'})
+    webpage = urlopen(req).read()
+    html_text = webpage.decode("utf8")
     html_text = re.sub("\s+", " ", html_text)
 
     return html_text
@@ -32,7 +33,6 @@ def get_country_link(links,country):
     return result
 
 def get_country_dic():
-
     inputFileName = "worldometers_countrylist.txt"
     with open(inputFileName) as f:
         content = f.readlines()
