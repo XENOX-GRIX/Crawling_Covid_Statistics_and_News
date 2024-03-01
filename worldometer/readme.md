@@ -67,4 +67,16 @@ Input Instruction -
 
 
 -----------------------------------------------------------------------------------------------------
-Run t1.py to generate result_1a.txt that is stored in tab seperated way
+
+Requirements : 
+Python 
+matplotlib
+
+Run main.py to get access to the menu driven program.
+import worldometer_menu and call worldometer_menu.generate_files(country_list.txt) to generate all the files in the respective folders : 
+Results : 
+|----------> active_cases
+|----------> daily_deaths
+|----------> new_cases
+|----------> new_recovered
+(I have included a test.py to show how this works) 

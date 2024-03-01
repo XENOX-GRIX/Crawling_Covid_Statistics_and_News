@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'BORN CLOSETD CONTENT CTBD CTR GARBAGE HREF OPENTD SPACE STARTER TBD TR YESTERDAY\n    start : YESTERDAY skipGARBAGE STARTER skipTD rows\n    \n    skipTD : OPENTD skipTD\n            | CTR skipTD\n            | \n    \n    rows : GETrows rows\n         | CTBD\n    \n    GETrows : TR getCONTENTS CTR \n    \n    getCONTENTS : OPENTD getCONTENTS\n                | OPENTD CONTENT getCONTENTS \n                |\n    \n    skipGARBAGE : TR skipGARBAGE \n            | CTR skipGARBAGE\n            | TBD skipGARBAGE\n            | CONTENT skipGARBAGE\n            | OPENTD skipGARBAGE\n            |\n    '
+_lr_signature = 'CLOSEBRACKET CONTENT DATA GARBAGE OPENBRACKET SPACE STARTER\n    start : STARTER skipCONTENT DATA CONTENT\n    \n    skipCONTENT : CONTENT skipCONTENT\n                |  \n    '
     
-_lr_action_items = {'YESTERDAY':([0,],[2,]),'$end':([1,18,20,24,],[0,-1,-6,-5,]),'TR':([2,4,5,6,7,8,9,15,16,17,19,22,23,27,],[4,4,4,4,4,4,-4,21,-4,-4,21,-2,-3,-7,]),'CTR':([2,4,5,6,7,8,9,16,17,21,25,26,28,29,30,],[5,5,5,5,5,5,17,17,17,-10,27,-10,-8,-10,-9,]),'TBD':([2,4,5,6,7,8,],[6,6,6,6,6,6,]),'CONTENT':([2,4,5,6,7,8,26,],[7,7,7,7,7,7,29,]),'OPENTD':([2,4,5,6,7,8,9,16,17,21,26,29,],[8,8,8,8,8,8,16,16,16,26,26,26,]),'STARTER':([2,3,4,5,6,7,8,10,11,12,13,14,],[-16,9,-16,-16,-16,-16,-16,-11,-12,-13,-14,-15,]),'CTBD':([9,15,16,17,19,22,23,27,],[-4,20,-4,-4,20,-2,-3,-7,]),}
+_lr_action_items = {'STARTER':([0,],[2,]),'$end':([1,7,],[0,-1,]),'CONTENT':([2,4,5,],[4,4,7,]),'DATA':([2,3,4,6,],[-3,5,-3,-2,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'skipGARBAGE':([2,4,5,6,7,8,],[3,10,11,12,13,14,]),'skipTD':([9,16,17,],[15,22,23,]),'rows':([15,19,],[18,24,]),'GETrows':([15,19,],[19,19,]),'getCONTENTS':([21,26,29,],[25,28,30,]),}
+_lr_goto_items = {'start':([0,],[1,]),'skipCONTENT':([2,4,],[3,6,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,20 +27,7 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> YESTERDAY skipGARBAGE STARTER skipTD rows','start',5,'p_start','t1.py',86),
-  ('skipTD -> OPENTD skipTD','skipTD',2,'p_skipTD','t1.py',90),
-  ('skipTD -> CTR skipTD','skipTD',2,'p_skipTD','t1.py',91),
-  ('skipTD -> <empty>','skipTD',0,'p_skipTD','t1.py',92),
-  ('rows -> GETrows rows','rows',2,'p_rows','t1.py',97),
-  ('rows -> CTBD','rows',1,'p_rows','t1.py',98),
-  ('GETrows -> TR getCONTENTS CTR','GETrows',3,'p_GETrows','t1.py',109),
-  ('getCONTENTS -> OPENTD getCONTENTS','getCONTENTS',2,'p_getCONTENTS','t1.py',120),
-  ('getCONTENTS -> OPENTD CONTENT getCONTENTS','getCONTENTS',3,'p_getCONTENTS','t1.py',121),
-  ('getCONTENTS -> <empty>','getCONTENTS',0,'p_getCONTENTS','t1.py',122),
-  ('skipGARBAGE -> TR skipGARBAGE','skipGARBAGE',2,'p_skipGARBAGE','t1.py',132),
-  ('skipGARBAGE -> CTR skipGARBAGE','skipGARBAGE',2,'p_skipGARBAGE','t1.py',133),
-  ('skipGARBAGE -> TBD skipGARBAGE','skipGARBAGE',2,'p_skipGARBAGE','t1.py',134),
-  ('skipGARBAGE -> CONTENT skipGARBAGE','skipGARBAGE',2,'p_skipGARBAGE','t1.py',135),
-  ('skipGARBAGE -> OPENTD skipGARBAGE','skipGARBAGE',2,'p_skipGARBAGE','t1.py',136),
-  ('skipGARBAGE -> <empty>','skipGARBAGE',0,'p_skipGARBAGE','t1.py',137),
+  ('start -> STARTER skipCONTENT DATA CONTENT','start',4,'p_start','graph_data.py',53),
+  ('skipCONTENT -> CONTENT skipCONTENT','skipCONTENT',2,'p_skipCONTENT','graph_data.py',63),
+  ('skipCONTENT -> <empty>','skipCONTENT',0,'p_skipCONTENT','graph_data.py',64),
 ]
