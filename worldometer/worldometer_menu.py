@@ -199,6 +199,12 @@ def generate_files(file):
         os.mkdir("./Results")
     t_data = table_data.extract_table()
     url_data =url_fetcher.extract_urls()
+    f=open("./Results/table_data.txt",'w',encoding="utf-8")
+    for l in t_data : 
+        for i in l : 
+            f.write(str(i) + "\t")
+        f.write("\n")
+    f.close            
     country_data = {}
     for i in range(len(t_data)): 
         country_data[str(t_data[i][1]).strip().lower()] = t_data[i]
