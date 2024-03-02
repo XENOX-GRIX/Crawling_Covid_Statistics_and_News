@@ -1,6 +1,38 @@
 import os
 import ply.lex as lex
 import ply.yacc as yacc
+from datetime import datetime, timedelta
+
+def parse_dates(date_str, year):
+    date_str = date_str.replace("–", "-")
+    def daterange(start_date, end_date):
+        for n in range(int((end_date - start_date).days) + 1):
+            yield start_date + timedelta(n)
+            
+    try :
+        if not date_str[0].isdigit(): 
+            tt = date_str.strip().split(" ")
+            date_str = f"{tt[1]} {tt[0]}"
+        if '-' in date_str:
+            day_start, day_end, month_name = date_str.replace(" ", "").partition("-")[0], date_str.split("-")[1].split(" ")[0], date_str.split(" ")[-1]
+            month = datetime.strptime(month_name, "%B").month  
+            start_date = datetime.strptime(f"{year}-{month}-{day_start}", "%Y-%m-%d")
+            end_date = datetime.strptime(f"{year}-{month}-{day_end}", "%Y-%m-%d")
+            dates = [single_date.strftime("%Y-%m-%d") for single_date in daterange(start_date, end_date)]
+        else:
+            day, month_name = date_str.split(" ")
+            month = datetime.strptime(month_name, "%B").month 
+            date = datetime.strptime(f"{year}-{month}-{day}", "%Y-%m-%d")
+            dates = [date.strftime("%Y-%m-%d")]
+            
+        return dates
+    except: 
+        print(date_str)
+        return []
+
+def chunk_string(s, chunk_size):
+    return [s[i:i+chunk_size] for i in range(0, len(s), chunk_size)]
+
 
 global_output_file = None
 ###DEFINING TOKENS###
@@ -15,7 +47,7 @@ tokens = ('FIRST',
           'OPENFIG',
           'CLOSEFIG')
 t_ignore = ' \t\n'
-
+date = ""
 s = ""
 x = ""
 ###############Tokenizer Rules################
@@ -84,7 +116,11 @@ def p_contentSequence(p):
     global x 
     global s
     if len(x) > 0 and len(s)>0:
-        global_output_file.write(x + " : " + s +"\n")
+        tt = parse_dates(x, date)
+        ss = chunk_string(s, 100)
+        for i in tt : 
+            for j in ss: 
+                global_output_file.write(i + "\t" + j +"\n")
     x = ""
     s = ""
 
@@ -98,8 +134,13 @@ def p_date(p):
     # count+=1
     global x 
     global s
+    global date
     if len(x) > 0 and len(s)>0:
-        global_output_file.write(x + " : " + s +"\n")
+        tt = parse_dates(x, date)
+        ss = chunk_string(s, 100)
+        for i in tt : 
+            for j in ss: 
+                global_output_file.write(i + "\t" + j +"\n")
     x = str(p[2])
     s = ""
     
@@ -129,7 +170,6 @@ def p_skip(p):
         except ValueError:
             if p[1] != 'edit':
                 s = str(p[1]) +" "+ s
-                # global_output_file.write(str(p[1])+"\n")
 
 def p_skipcontent(p):
     '''skipcontent : CONTENT skipcontent
@@ -152,8 +192,10 @@ def p_empty(p):
 
 
 #########DRIVER FUNCTION#######
-def process_html_page(html_page_name, output_dir):
+def process_html_page(html_page_name, output_dir, year):
     global global_output_file
+    global date 
+    date = year
  
     output_file_path = os.path.join(output_dir, os.path.basename(html_page_name).replace('.html', '.txt'))
     
@@ -179,5 +221,5 @@ def crawls():
 
     with open(timeline_file, 'r', encoding="utf-8") as file:
         for line in file:
-            html_page_name = line.strip() 
-            process_html_page(html_page_name, output_dir)
+            html_page_name, date  = line.strip().split() 
+            process_html_page(html_page_name, output_dir, date)
