@@ -16,6 +16,8 @@ tokens = ('FIRST',
           'CLOSEFIG')
 t_ignore = ' \t\n'
 
+s = ""
+x = ""
 ###############Tokenizer Rules################
 def t_FIRST(t):
      r'<h2><span.class="mw-headline".id="Pandemic_chronology">'
@@ -50,7 +52,7 @@ def t_CLOSEFIG(t):
     return t
 
 def t_CONTENT(t):
-    r'[A-Za-z0-9, .]+'
+    r'[A-Za-z0-9, .–]+'
     return t
 
 def t_SKIPTAG(t):
@@ -65,32 +67,69 @@ def p_start(p):
     '''start : section'''
 
 def p_section(p):
-    '''section : FIRST contentSequence SECOND '''
+    '''section : FIRST skipTags contentSequence SECOND '''
 
+def p_skipTags(p):
+    '''
+    skipTags : CONTENT skipTags
+            |  OPENHREF skipTags
+            | CLOSEHREF skipTags
+            |
+    '''
+# count = 0
 def p_contentSequence(p):
-    '''contentSequence : contentSequence contentElement
-                       | contentElement'''
+    '''contentSequence : date contentElement contentSequence 
+                       | contentElement
+    '''
+    global x 
+    global s
+    if len(x) > 0 and len(s)>0:
+        global_output_file.write(x + " : " + s +"\n")
+    x = ""
+    s = ""
+
+def p_date(p): 
+    '''
+    date : HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND
+         | HEADSTART CONTENT HEADEND
+    '''
+    # global count
+    # print(count)
+    # count+=1
+    global x 
+    global s
+    if len(x) > 0 and len(s)>0:
+        global_output_file.write(x + " : " + s +"\n")
+    x = str(p[2])
+    s = ""
+    
+
+
 
 def p_contentElement(p):
-    '''contentElement : HEADSTART content HEADEND
-                      | OPENHREF skip CLOSEHREF
-                      | OPENFIG skipcontent CLOSEFIG
-                      | CONTENT'''
+    '''contentElement : OPENHREF skip CLOSEHREF contentElement
+                      | OPENFIG skipcontent CLOSEFIG contentElement
+                      | CONTENT contentElement
+                      | empty
+                      '''
     global global_output_file
-    if len(p) == 2:
-        global_output_file.write(str(p[1])+"\n")
+    global s 
+    if len(p) == 3:
+        s = str(p[1]) + " " + s 
 
 def p_skip(p):
     '''skip : CONTENT skip
             | empty'''
     global global_output_file
+    global s
     if len(p) == 3:
         try:
             float(p[1])
             int(p[1])
         except ValueError:
             if p[1] != 'edit':
-                global_output_file.write(str(p[1])+"\n")
+                s = str(p[1]) +" "+ s
+                # global_output_file.write(str(p[1])+"\n")
 
 def p_skipcontent(p):
     '''skipcontent : CONTENT skipcontent
@@ -100,9 +139,9 @@ def p_skipcontent(p):
 
 def p_content(p):
     ''' content : CONTENT'''
-    global global_output_file
+    global s
     if len(p) == 2:
-        global_output_file.write('\n' + str(p[1]) + '\n')
+        s = str(p[1]) + " " + s
 
 def p_error(p):
     pass
@@ -110,6 +149,7 @@ def p_error(p):
 def p_empty(p):
     '''empty :'''
     pass
+
 
 #########DRIVER FUNCTION#######
 def process_html_page(html_page_name, output_dir):
