@@ -78,7 +78,7 @@ def p_contentElement(p):
                       | CONTENT'''
     global global_output_file
     if len(p) == 2:
-        global_output_file.write(str(p[1]))
+        global_output_file.write(str(p[1])+"\n")
 
 def p_skip(p):
     '''skip : CONTENT skip
@@ -90,7 +90,7 @@ def p_skip(p):
             int(p[1])
         except ValueError:
             if p[1] != 'edit':
-                global_output_file.write(str(p[1]))
+                global_output_file.write(str(p[1])+"\n")
 
 def p_skipcontent(p):
     '''skipcontent : CONTENT skipcontent
@@ -131,8 +131,8 @@ def process_html_page(html_page_name, output_dir):
         global_output_file.close() 
 
 def crawls():
-    timeline_file = 'timeline.txt'
-    output_dir = os.path.join('helper', 'timeline_data')
+    timeline_file = './Pages/timeline.txt'
+    output_dir = os.path.join('Pages', 'timeline_data')
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)

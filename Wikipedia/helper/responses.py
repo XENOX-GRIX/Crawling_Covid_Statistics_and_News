@@ -112,8 +112,8 @@ def process_html_page(html_page_name, output_dir):
         global_output_file.close() 
 
 def crawls():
-    responses_file = 'responses.txt'
-    output_dir = os.path.join('helper', 'responses_data')
+    responses_file = './Pages/responses.txt'
+    output_dir = os.path.join('Pages', 'responses_data')
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
