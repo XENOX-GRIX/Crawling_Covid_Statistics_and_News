@@ -1,0 +1,658 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    SKIPTAG
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> section
+Rule 2     section -> FIRST skipTags contentSequence SECOND
+Rule 3     skipTags -> CONTENT skipTags
+Rule 4     skipTags -> OPENHREF skipTags
+Rule 5     skipTags -> CLOSEHREF skipTags
+Rule 6     skipTags -> <empty>
+Rule 7     contentSequence -> date contentElement contentSequence
+Rule 8     contentSequence -> contentElement
+Rule 9     date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND
+Rule 10    date -> HEADSTART CONTENT HEADEND
+Rule 11    contentElement -> OPENHREF skip CLOSEHREF contentElement
+Rule 12    contentElement -> OPENFIG skipcontent CLOSEFIG contentElement
+Rule 13    contentElement -> CONTENT contentElement
+Rule 14    contentElement -> empty
+Rule 15    skip -> CONTENT skip
+Rule 16    skip -> empty
+Rule 17    skipcontent -> CONTENT skipcontent
+Rule 18    skipcontent -> OPENHREF skipcontent
+Rule 19    skipcontent -> CLOSEHREF skipcontent
+Rule 20    skipcontent -> empty
+Rule 21    content -> CONTENT
+Rule 22    empty -> <empty>
+
+Terminals, with rules where they appear
+
+CLOSEFIG             : 12
+CLOSEHREF            : 5 9 11 19
+CONTENT              : 3 9 9 10 13 15 17 21
+FIRST                : 2
+HEADEND              : 9 10
+HEADSTART            : 9 10
+OPENFIG              : 12
+OPENHREF             : 4 9 11 18
+SECOND               : 2
+SKIPTAG              : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+content              : 
+contentElement       : 7 8 11 12 13
+contentSequence      : 2 7
+date                 : 7
+empty                : 14 16 20
+section              : 1
+skip                 : 11 15
+skipTags             : 2 3 4 5
+skipcontent          : 12 17 18 19
+start                : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . section
+    (2) section -> . FIRST skipTags contentSequence SECOND
+
+    FIRST           shift and go to state 3
+
+    start                          shift and go to state 1
+    section                        shift and go to state 2
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> section .
+
+    $end            reduce using rule 1 (start -> section .)
+
+
+state 3
+
+    (2) section -> FIRST . skipTags contentSequence SECOND
+    (3) skipTags -> . CONTENT skipTags
+    (4) skipTags -> . OPENHREF skipTags
+    (5) skipTags -> . CLOSEHREF skipTags
+    (6) skipTags -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    HEADSTART       reduce using rule 6 (skipTags -> .)
+    OPENFIG         reduce using rule 6 (skipTags -> .)
+    SECOND          reduce using rule 6 (skipTags -> .)
+
+  ! OPENHREF        [ reduce using rule 6 (skipTags -> .) ]
+  ! CONTENT         [ reduce using rule 6 (skipTags -> .) ]
+
+    skipTags                       shift and go to state 4
+
+state 4
+
+    (2) section -> FIRST skipTags . contentSequence SECOND
+    (7) contentSequence -> . date contentElement contentSequence
+    (8) contentSequence -> . contentElement
+    (9) date -> . HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND
+    (10) date -> . HEADSTART CONTENT HEADEND
+    (11) contentElement -> . OPENHREF skip CLOSEHREF contentElement
+    (12) contentElement -> . OPENFIG skipcontent CLOSEFIG contentElement
+    (13) contentElement -> . CONTENT contentElement
+    (14) contentElement -> . empty
+    (22) empty -> .
+
+    HEADSTART       shift and go to state 11
+    OPENHREF        shift and go to state 13
+    OPENFIG         shift and go to state 14
+    CONTENT         shift and go to state 12
+    SECOND          reduce using rule 22 (empty -> .)
+
+    contentSequence                shift and go to state 8
+    date                           shift and go to state 9
+    contentElement                 shift and go to state 10
+    empty                          shift and go to state 15
+
+state 5
+
+    (3) skipTags -> CONTENT . skipTags
+    (3) skipTags -> . CONTENT skipTags
+    (4) skipTags -> . OPENHREF skipTags
+    (5) skipTags -> . CLOSEHREF skipTags
+    (6) skipTags -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    HEADSTART       reduce using rule 6 (skipTags -> .)
+    OPENFIG         reduce using rule 6 (skipTags -> .)
+    SECOND          reduce using rule 6 (skipTags -> .)
+
+  ! OPENHREF        [ reduce using rule 6 (skipTags -> .) ]
+  ! CONTENT         [ reduce using rule 6 (skipTags -> .) ]
+
+    skipTags                       shift and go to state 16
+
+state 6
+
+    (4) skipTags -> OPENHREF . skipTags
+    (3) skipTags -> . CONTENT skipTags
+    (4) skipTags -> . OPENHREF skipTags
+    (5) skipTags -> . CLOSEHREF skipTags
+    (6) skipTags -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    HEADSTART       reduce using rule 6 (skipTags -> .)
+    OPENFIG         reduce using rule 6 (skipTags -> .)
+    SECOND          reduce using rule 6 (skipTags -> .)
+
+  ! OPENHREF        [ reduce using rule 6 (skipTags -> .) ]
+  ! CONTENT         [ reduce using rule 6 (skipTags -> .) ]
+
+    skipTags                       shift and go to state 17
+
+state 7
+
+    (5) skipTags -> CLOSEHREF . skipTags
+    (3) skipTags -> . CONTENT skipTags
+    (4) skipTags -> . OPENHREF skipTags
+    (5) skipTags -> . CLOSEHREF skipTags
+    (6) skipTags -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    CONTENT         shift and go to state 5
+    OPENHREF        shift and go to state 6
+    CLOSEHREF       shift and go to state 7
+    HEADSTART       reduce using rule 6 (skipTags -> .)
+    OPENFIG         reduce using rule 6 (skipTags -> .)
+    SECOND          reduce using rule 6 (skipTags -> .)
+
+  ! OPENHREF        [ reduce using rule 6 (skipTags -> .) ]
+  ! CONTENT         [ reduce using rule 6 (skipTags -> .) ]
+
+    skipTags                       shift and go to state 18
+
+state 8
+
+    (2) section -> FIRST skipTags contentSequence . SECOND
+
+    SECOND          shift and go to state 19
+
+
+state 9
+
+    (7) contentSequence -> date . contentElement contentSequence
+    (11) contentElement -> . OPENHREF skip CLOSEHREF contentElement
+    (12) contentElement -> . OPENFIG skipcontent CLOSEFIG contentElement
+    (13) contentElement -> . CONTENT contentElement
+    (14) contentElement -> . empty
+    (22) empty -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for OPENFIG resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    OPENHREF        shift and go to state 13
+    OPENFIG         shift and go to state 14
+    CONTENT         shift and go to state 12
+    HEADSTART       reduce using rule 22 (empty -> .)
+    SECOND          reduce using rule 22 (empty -> .)
+
+  ! OPENHREF        [ reduce using rule 22 (empty -> .) ]
+  ! OPENFIG         [ reduce using rule 22 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 22 (empty -> .) ]
+
+    contentElement                 shift and go to state 20
+    empty                          shift and go to state 15
+
+state 10
+
+    (8) contentSequence -> contentElement .
+
+    SECOND          reduce using rule 8 (contentSequence -> contentElement .)
+
+
+state 11
+
+    (9) date -> HEADSTART . CONTENT OPENHREF CONTENT CLOSEHREF HEADEND
+    (10) date -> HEADSTART . CONTENT HEADEND
+
+    CONTENT         shift and go to state 21
+
+
+state 12
+
+    (13) contentElement -> CONTENT . contentElement
+    (11) contentElement -> . OPENHREF skip CLOSEHREF contentElement
+    (12) contentElement -> . OPENFIG skipcontent CLOSEFIG contentElement
+    (13) contentElement -> . CONTENT contentElement
+    (14) contentElement -> . empty
+    (22) empty -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for OPENFIG resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    OPENHREF        shift and go to state 13
+    OPENFIG         shift and go to state 14
+    CONTENT         shift and go to state 12
+    SECOND          reduce using rule 22 (empty -> .)
+    HEADSTART       reduce using rule 22 (empty -> .)
+
+  ! OPENHREF        [ reduce using rule 22 (empty -> .) ]
+  ! OPENFIG         [ reduce using rule 22 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 22 (empty -> .) ]
+
+    contentElement                 shift and go to state 22
+    empty                          shift and go to state 15
+
+state 13
+
+    (11) contentElement -> OPENHREF . skip CLOSEHREF contentElement
+    (15) skip -> . CONTENT skip
+    (16) skip -> . empty
+    (22) empty -> .
+
+    CONTENT         shift and go to state 24
+    CLOSEHREF       reduce using rule 22 (empty -> .)
+
+    skip                           shift and go to state 23
+    empty                          shift and go to state 25
+
+state 14
+
+    (12) contentElement -> OPENFIG . skipcontent CLOSEFIG contentElement
+    (17) skipcontent -> . CONTENT skipcontent
+    (18) skipcontent -> . OPENHREF skipcontent
+    (19) skipcontent -> . CLOSEHREF skipcontent
+    (20) skipcontent -> . empty
+    (22) empty -> .
+
+    CONTENT         shift and go to state 27
+    OPENHREF        shift and go to state 28
+    CLOSEHREF       shift and go to state 29
+    CLOSEFIG        reduce using rule 22 (empty -> .)
+
+    skipcontent                    shift and go to state 26
+    empty                          shift and go to state 30
+
+state 15
+
+    (14) contentElement -> empty .
+
+    SECOND          reduce using rule 14 (contentElement -> empty .)
+    HEADSTART       reduce using rule 14 (contentElement -> empty .)
+    OPENHREF        reduce using rule 14 (contentElement -> empty .)
+    OPENFIG         reduce using rule 14 (contentElement -> empty .)
+    CONTENT         reduce using rule 14 (contentElement -> empty .)
+
+
+state 16
+
+    (3) skipTags -> CONTENT skipTags .
+
+    HEADSTART       reduce using rule 3 (skipTags -> CONTENT skipTags .)
+    OPENHREF        reduce using rule 3 (skipTags -> CONTENT skipTags .)
+    OPENFIG         reduce using rule 3 (skipTags -> CONTENT skipTags .)
+    CONTENT         reduce using rule 3 (skipTags -> CONTENT skipTags .)
+    SECOND          reduce using rule 3 (skipTags -> CONTENT skipTags .)
+
+
+state 17
+
+    (4) skipTags -> OPENHREF skipTags .
+
+    HEADSTART       reduce using rule 4 (skipTags -> OPENHREF skipTags .)
+    OPENHREF        reduce using rule 4 (skipTags -> OPENHREF skipTags .)
+    OPENFIG         reduce using rule 4 (skipTags -> OPENHREF skipTags .)
+    CONTENT         reduce using rule 4 (skipTags -> OPENHREF skipTags .)
+    SECOND          reduce using rule 4 (skipTags -> OPENHREF skipTags .)
+
+
+state 18
+
+    (5) skipTags -> CLOSEHREF skipTags .
+
+    HEADSTART       reduce using rule 5 (skipTags -> CLOSEHREF skipTags .)
+    OPENHREF        reduce using rule 5 (skipTags -> CLOSEHREF skipTags .)
+    OPENFIG         reduce using rule 5 (skipTags -> CLOSEHREF skipTags .)
+    CONTENT         reduce using rule 5 (skipTags -> CLOSEHREF skipTags .)
+    SECOND          reduce using rule 5 (skipTags -> CLOSEHREF skipTags .)
+
+
+state 19
+
+    (2) section -> FIRST skipTags contentSequence SECOND .
+
+    $end            reduce using rule 2 (section -> FIRST skipTags contentSequence SECOND .)
+
+
+state 20
+
+    (7) contentSequence -> date contentElement . contentSequence
+    (7) contentSequence -> . date contentElement contentSequence
+    (8) contentSequence -> . contentElement
+    (9) date -> . HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND
+    (10) date -> . HEADSTART CONTENT HEADEND
+    (11) contentElement -> . OPENHREF skip CLOSEHREF contentElement
+    (12) contentElement -> . OPENFIG skipcontent CLOSEFIG contentElement
+    (13) contentElement -> . CONTENT contentElement
+    (14) contentElement -> . empty
+    (22) empty -> .
+
+    HEADSTART       shift and go to state 11
+    OPENHREF        shift and go to state 13
+    OPENFIG         shift and go to state 14
+    CONTENT         shift and go to state 12
+    SECOND          reduce using rule 22 (empty -> .)
+
+    date                           shift and go to state 9
+    contentElement                 shift and go to state 10
+    contentSequence                shift and go to state 31
+    empty                          shift and go to state 15
+
+state 21
+
+    (9) date -> HEADSTART CONTENT . OPENHREF CONTENT CLOSEHREF HEADEND
+    (10) date -> HEADSTART CONTENT . HEADEND
+
+    OPENHREF        shift and go to state 32
+    HEADEND         shift and go to state 33
+
+
+state 22
+
+    (13) contentElement -> CONTENT contentElement .
+
+    SECOND          reduce using rule 13 (contentElement -> CONTENT contentElement .)
+    HEADSTART       reduce using rule 13 (contentElement -> CONTENT contentElement .)
+    OPENHREF        reduce using rule 13 (contentElement -> CONTENT contentElement .)
+    OPENFIG         reduce using rule 13 (contentElement -> CONTENT contentElement .)
+    CONTENT         reduce using rule 13 (contentElement -> CONTENT contentElement .)
+
+
+state 23
+
+    (11) contentElement -> OPENHREF skip . CLOSEHREF contentElement
+
+    CLOSEHREF       shift and go to state 34
+
+
+state 24
+
+    (15) skip -> CONTENT . skip
+    (15) skip -> . CONTENT skip
+    (16) skip -> . empty
+    (22) empty -> .
+
+    CONTENT         shift and go to state 24
+    CLOSEHREF       reduce using rule 22 (empty -> .)
+
+    skip                           shift and go to state 35
+    empty                          shift and go to state 25
+
+state 25
+
+    (16) skip -> empty .
+
+    CLOSEHREF       reduce using rule 16 (skip -> empty .)
+
+
+state 26
+
+    (12) contentElement -> OPENFIG skipcontent . CLOSEFIG contentElement
+
+    CLOSEFIG        shift and go to state 36
+
+
+state 27
+
+    (17) skipcontent -> CONTENT . skipcontent
+    (17) skipcontent -> . CONTENT skipcontent
+    (18) skipcontent -> . OPENHREF skipcontent
+    (19) skipcontent -> . CLOSEHREF skipcontent
+    (20) skipcontent -> . empty
+    (22) empty -> .
+
+    CONTENT         shift and go to state 27
+    OPENHREF        shift and go to state 28
+    CLOSEHREF       shift and go to state 29
+    CLOSEFIG        reduce using rule 22 (empty -> .)
+
+    skipcontent                    shift and go to state 37
+    empty                          shift and go to state 30
+
+state 28
+
+    (18) skipcontent -> OPENHREF . skipcontent
+    (17) skipcontent -> . CONTENT skipcontent
+    (18) skipcontent -> . OPENHREF skipcontent
+    (19) skipcontent -> . CLOSEHREF skipcontent
+    (20) skipcontent -> . empty
+    (22) empty -> .
+
+    CONTENT         shift and go to state 27
+    OPENHREF        shift and go to state 28
+    CLOSEHREF       shift and go to state 29
+    CLOSEFIG        reduce using rule 22 (empty -> .)
+
+    skipcontent                    shift and go to state 38
+    empty                          shift and go to state 30
+
+state 29
+
+    (19) skipcontent -> CLOSEHREF . skipcontent
+    (17) skipcontent -> . CONTENT skipcontent
+    (18) skipcontent -> . OPENHREF skipcontent
+    (19) skipcontent -> . CLOSEHREF skipcontent
+    (20) skipcontent -> . empty
+    (22) empty -> .
+
+    CONTENT         shift and go to state 27
+    OPENHREF        shift and go to state 28
+    CLOSEHREF       shift and go to state 29
+    CLOSEFIG        reduce using rule 22 (empty -> .)
+
+    skipcontent                    shift and go to state 39
+    empty                          shift and go to state 30
+
+state 30
+
+    (20) skipcontent -> empty .
+
+    CLOSEFIG        reduce using rule 20 (skipcontent -> empty .)
+
+
+state 31
+
+    (7) contentSequence -> date contentElement contentSequence .
+
+    SECOND          reduce using rule 7 (contentSequence -> date contentElement contentSequence .)
+
+
+state 32
+
+    (9) date -> HEADSTART CONTENT OPENHREF . CONTENT CLOSEHREF HEADEND
+
+    CONTENT         shift and go to state 40
+
+
+state 33
+
+    (10) date -> HEADSTART CONTENT HEADEND .
+
+    OPENHREF        reduce using rule 10 (date -> HEADSTART CONTENT HEADEND .)
+    OPENFIG         reduce using rule 10 (date -> HEADSTART CONTENT HEADEND .)
+    CONTENT         reduce using rule 10 (date -> HEADSTART CONTENT HEADEND .)
+    HEADSTART       reduce using rule 10 (date -> HEADSTART CONTENT HEADEND .)
+    SECOND          reduce using rule 10 (date -> HEADSTART CONTENT HEADEND .)
+
+
+state 34
+
+    (11) contentElement -> OPENHREF skip CLOSEHREF . contentElement
+    (11) contentElement -> . OPENHREF skip CLOSEHREF contentElement
+    (12) contentElement -> . OPENFIG skipcontent CLOSEFIG contentElement
+    (13) contentElement -> . CONTENT contentElement
+    (14) contentElement -> . empty
+    (22) empty -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for OPENFIG resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    OPENHREF        shift and go to state 13
+    OPENFIG         shift and go to state 14
+    CONTENT         shift and go to state 12
+    SECOND          reduce using rule 22 (empty -> .)
+    HEADSTART       reduce using rule 22 (empty -> .)
+
+  ! OPENHREF        [ reduce using rule 22 (empty -> .) ]
+  ! OPENFIG         [ reduce using rule 22 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 22 (empty -> .) ]
+
+    contentElement                 shift and go to state 41
+    empty                          shift and go to state 15
+
+state 35
+
+    (15) skip -> CONTENT skip .
+
+    CLOSEHREF       reduce using rule 15 (skip -> CONTENT skip .)
+
+
+state 36
+
+    (12) contentElement -> OPENFIG skipcontent CLOSEFIG . contentElement
+    (11) contentElement -> . OPENHREF skip CLOSEHREF contentElement
+    (12) contentElement -> . OPENFIG skipcontent CLOSEFIG contentElement
+    (13) contentElement -> . CONTENT contentElement
+    (14) contentElement -> . empty
+    (22) empty -> .
+
+  ! shift/reduce conflict for OPENHREF resolved as shift
+  ! shift/reduce conflict for OPENFIG resolved as shift
+  ! shift/reduce conflict for CONTENT resolved as shift
+    OPENHREF        shift and go to state 13
+    OPENFIG         shift and go to state 14
+    CONTENT         shift and go to state 12
+    SECOND          reduce using rule 22 (empty -> .)
+    HEADSTART       reduce using rule 22 (empty -> .)
+
+  ! OPENHREF        [ reduce using rule 22 (empty -> .) ]
+  ! OPENFIG         [ reduce using rule 22 (empty -> .) ]
+  ! CONTENT         [ reduce using rule 22 (empty -> .) ]
+
+    contentElement                 shift and go to state 42
+    empty                          shift and go to state 15
+
+state 37
+
+    (17) skipcontent -> CONTENT skipcontent .
+
+    CLOSEFIG        reduce using rule 17 (skipcontent -> CONTENT skipcontent .)
+
+
+state 38
+
+    (18) skipcontent -> OPENHREF skipcontent .
+
+    CLOSEFIG        reduce using rule 18 (skipcontent -> OPENHREF skipcontent .)
+
+
+state 39
+
+    (19) skipcontent -> CLOSEHREF skipcontent .
+
+    CLOSEFIG        reduce using rule 19 (skipcontent -> CLOSEHREF skipcontent .)
+
+
+state 40
+
+    (9) date -> HEADSTART CONTENT OPENHREF CONTENT . CLOSEHREF HEADEND
+
+    CLOSEHREF       shift and go to state 43
+
+
+state 41
+
+    (11) contentElement -> OPENHREF skip CLOSEHREF contentElement .
+
+    SECOND          reduce using rule 11 (contentElement -> OPENHREF skip CLOSEHREF contentElement .)
+    HEADSTART       reduce using rule 11 (contentElement -> OPENHREF skip CLOSEHREF contentElement .)
+    OPENHREF        reduce using rule 11 (contentElement -> OPENHREF skip CLOSEHREF contentElement .)
+    OPENFIG         reduce using rule 11 (contentElement -> OPENHREF skip CLOSEHREF contentElement .)
+    CONTENT         reduce using rule 11 (contentElement -> OPENHREF skip CLOSEHREF contentElement .)
+
+
+state 42
+
+    (12) contentElement -> OPENFIG skipcontent CLOSEFIG contentElement .
+
+    SECOND          reduce using rule 12 (contentElement -> OPENFIG skipcontent CLOSEFIG contentElement .)
+    HEADSTART       reduce using rule 12 (contentElement -> OPENFIG skipcontent CLOSEFIG contentElement .)
+    OPENHREF        reduce using rule 12 (contentElement -> OPENFIG skipcontent CLOSEFIG contentElement .)
+    OPENFIG         reduce using rule 12 (contentElement -> OPENFIG skipcontent CLOSEFIG contentElement .)
+    CONTENT         reduce using rule 12 (contentElement -> OPENFIG skipcontent CLOSEFIG contentElement .)
+
+
+state 43
+
+    (9) date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF . HEADEND
+
+    HEADEND         shift and go to state 44
+
+
+state 44
+
+    (9) date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND .
+
+    OPENHREF        reduce using rule 9 (date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND .)
+    OPENFIG         reduce using rule 9 (date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND .)
+    CONTENT         reduce using rule 9 (date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND .)
+    HEADSTART       reduce using rule 9 (date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND .)
+    SECOND          reduce using rule 9 (date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for OPENHREF in state 3 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 3 resolved as shift
+WARNING: shift/reduce conflict for OPENHREF in state 5 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 5 resolved as shift
+WARNING: shift/reduce conflict for OPENHREF in state 6 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 6 resolved as shift
+WARNING: shift/reduce conflict for OPENHREF in state 7 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 7 resolved as shift
+WARNING: shift/reduce conflict for OPENHREF in state 9 resolved as shift
+WARNING: shift/reduce conflict for OPENFIG in state 9 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 9 resolved as shift
+WARNING: shift/reduce conflict for OPENHREF in state 12 resolved as shift
+WARNING: shift/reduce conflict for OPENFIG in state 12 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 12 resolved as shift
+WARNING: shift/reduce conflict for OPENHREF in state 34 resolved as shift
+WARNING: shift/reduce conflict for OPENFIG in state 34 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 34 resolved as shift
+WARNING: shift/reduce conflict for OPENHREF in state 36 resolved as shift
+WARNING: shift/reduce conflict for OPENFIG in state 36 resolved as shift
+WARNING: shift/reduce conflict for CONTENT in state 36 resolved as shift
