@@ -16,10 +16,10 @@ def download_webpage(url, category):
 
         if category == "timeline":
             with open('./Pages/timeline.txt', 'a+', encoding="utf-8") as f:
-                f.write(f"{filename}\n")
+                f.write(f"{filename} {page_name[-4:]}\n")
         elif category == "responses":
             with open('./Pages/responses.txt', 'a+', encoding="utf-8") as f:
-                f.write(f"{filename}\n")
+                f.write(f"{filename} {page_name[-4:]}\n")
                 
         # print(f"Downloaded {page_name} saved to {filename} and logged in {category}.txt")
     except Exception as e:

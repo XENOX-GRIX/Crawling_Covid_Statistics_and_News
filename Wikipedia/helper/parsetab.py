@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CLOSEFIG CLOSEHREF CONTENT FIRST HEADEND HEADSTART OPENFIG OPENHREF SECOND SKIPTAGstart : sectionsection : FIRST skipTags contentSequence SECOND \n    skipTags : CONTENT skipTags\n            |  OPENHREF skipTags\n            | CLOSEHREF skipTags\n            |\n    contentSequence : date contentElement contentSequence \n                       | contentElement\n    \n    date : HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND\n         | HEADSTART CONTENT HEADEND\n    contentElement : OPENHREF skip CLOSEHREF contentElement\n                      | OPENFIG skipcontent CLOSEFIG contentElement\n                      | CONTENT contentElement\n                      | empty\n                      skip : CONTENT skip\n            | emptyskipcontent : CONTENT skipcontent\n                   | OPENHREF skipcontent\n                   | CLOSEHREF skipcontent\n                   | empty content : CONTENTempty :'
+_lr_signature = 'CLOSEHREF CONTENT FIRST H3 OPENHREF SECOND SKIPTAGstart : content_sectioncontent_section : FIRST content_itemscontent_items : content_item content_items\n                     | content_itemcontent_item : contents\n                    | FIRST\n                    | link\n                    | heading\n    heading : H3 CONTENT\n    contents : CONTENTlink : OPENHREF CONTENT CLOSEHREF\n            | OPENHREF CONTENT CONTENT CONTENT CLOSEHREF\n            | OPENHREF CONTENT CONTENT CLOSEHREF\n            | OPENHREF CLOSEHREF'
     
-_lr_action_items = {'FIRST':([0,],[3,]),'$end':([1,2,19,],[0,-1,-2,]),'CONTENT':([3,4,5,6,7,9,11,12,13,14,15,16,17,18,20,22,24,27,28,29,32,33,34,36,41,42,44,],[5,12,5,5,5,12,21,12,24,27,-14,-3,-4,-5,12,-13,24,27,27,27,40,-10,12,12,-11,-12,-9,]),'OPENHREF':([3,4,5,6,7,9,12,14,15,16,17,18,20,21,22,27,28,29,33,34,36,41,42,44,],[6,13,6,6,6,13,13,28,-14,-3,-4,-5,13,32,-13,28,28,28,-10,13,13,-11,-12,-9,]),'CLOSEHREF':([3,5,6,7,13,14,23,24,25,27,28,29,35,40,],[7,7,7,7,-22,29,34,-22,-16,29,29,29,-15,43,]),'HEADSTART':([3,4,5,6,7,9,12,15,16,17,18,20,22,33,34,36,41,42,44,],[-6,11,-6,-6,-6,-22,-22,-14,-3,-4,-5,11,-13,-10,-22,-22,-11,-12,-9,]),'OPENFIG':([3,4,5,6,7,9,12,15,16,17,18,20,22,33,34,36,41,42,44,],[-6,14,-6,-6,-6,14,14,-14,-3,-4,-5,14,-13,-10,14,14,-11,-12,-9,]),'SECOND':([3,4,5,6,7,8,9,10,12,15,16,17,18,20,22,31,33,34,36,41,42,44,],[-6,-22,-6,-6,-6,19,-22,-8,-22,-14,-3,-4,-5,-22,-13,-7,-10,-22,-22,-11,-12,-9,]),'CLOSEFIG':([14,26,27,28,29,30,37,38,39,],[-22,36,-22,-22,-22,-20,-17,-18,-19,]),'HEADEND':([21,43,],[33,44,]),}
+_lr_action_items = {'FIRST':([0,3,4,6,7,8,9,10,15,16,18,20,21,],[3,4,-6,4,-5,-7,-8,-10,-14,-9,-11,-13,-12,]),'$end':([1,2,4,5,6,7,8,9,10,13,15,16,18,20,21,],[0,-1,-6,-2,-4,-5,-7,-8,-10,-3,-14,-9,-11,-13,-12,]),'CONTENT':([3,4,6,7,8,9,10,11,12,14,15,16,17,18,20,21,],[10,-6,10,-5,-7,-8,-10,14,16,17,-14,-9,19,-11,-13,-12,]),'OPENHREF':([3,4,6,7,8,9,10,15,16,18,20,21,],[11,-6,11,-5,-7,-8,-10,-14,-9,-11,-13,-12,]),'H3':([3,4,6,7,8,9,10,15,16,18,20,21,],[12,-6,12,-5,-7,-8,-10,-14,-9,-11,-13,-12,]),'CLOSEHREF':([11,14,17,19,],[15,18,20,21,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'start':([0,],[1,]),'section':([0,],[2,]),'skipTags':([3,5,6,7,],[4,16,17,18,]),'contentSequence':([4,20,],[8,31,]),'date':([4,20,],[9,9,]),'contentElement':([4,9,12,20,34,36,],[10,20,22,10,41,42,]),'empty':([4,9,12,13,14,20,24,27,28,29,34,36,],[15,15,15,25,30,15,25,30,30,30,15,15,]),'skip':([13,24,],[23,35,]),'skipcontent':([14,27,28,29,],[26,37,38,39,]),}
+_lr_goto_items = {'start':([0,],[1,]),'content_section':([0,],[2,]),'content_items':([3,6,],[5,13,]),'content_item':([3,6,],[6,6,]),'contents':([3,6,],[7,7,]),'link':([3,6,],[8,8,]),'heading':([3,6,],[9,9,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,26 +27,18 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> start","S'",1,None,None,None),
-  ('start -> section','start',1,'p_start','timeline.py',67),
-  ('section -> FIRST skipTags contentSequence SECOND','section',4,'p_section','timeline.py',70),
-  ('skipTags -> CONTENT skipTags','skipTags',2,'p_skipTags','timeline.py',74),
-  ('skipTags -> OPENHREF skipTags','skipTags',2,'p_skipTags','timeline.py',75),
-  ('skipTags -> CLOSEHREF skipTags','skipTags',2,'p_skipTags','timeline.py',76),
-  ('skipTags -> <empty>','skipTags',0,'p_skipTags','timeline.py',77),
-  ('contentSequence -> date contentElement contentSequence','contentSequence',3,'p_contentSequence','timeline.py',81),
-  ('contentSequence -> contentElement','contentSequence',1,'p_contentSequence','timeline.py',82),
-  ('date -> HEADSTART CONTENT OPENHREF CONTENT CLOSEHREF HEADEND','date',6,'p_date','timeline.py',93),
-  ('date -> HEADSTART CONTENT HEADEND','date',3,'p_date','timeline.py',94),
-  ('contentElement -> OPENHREF skip CLOSEHREF contentElement','contentElement',4,'p_contentElement','timeline.py',110),
-  ('contentElement -> OPENFIG skipcontent CLOSEFIG contentElement','contentElement',4,'p_contentElement','timeline.py',111),
-  ('contentElement -> CONTENT contentElement','contentElement',2,'p_contentElement','timeline.py',112),
-  ('contentElement -> empty','contentElement',1,'p_contentElement','timeline.py',113),
-  ('skip -> CONTENT skip','skip',2,'p_skip','timeline.py',121),
-  ('skip -> empty','skip',1,'p_skip','timeline.py',122),
-  ('skipcontent -> CONTENT skipcontent','skipcontent',2,'p_skipcontent','timeline.py',135),
-  ('skipcontent -> OPENHREF skipcontent','skipcontent',2,'p_skipcontent','timeline.py',136),
-  ('skipcontent -> CLOSEHREF skipcontent','skipcontent',2,'p_skipcontent','timeline.py',137),
-  ('skipcontent -> empty','skipcontent',1,'p_skipcontent','timeline.py',138),
-  ('content -> CONTENT','content',1,'p_content','timeline.py',141),
-  ('empty -> <empty>','empty',0,'p_empty','timeline.py',150),
+  ('start -> content_section','start',1,'p_start','responses.py',80),
+  ('content_section -> FIRST content_items','content_section',2,'p_content_section','responses.py',83),
+  ('content_items -> content_item content_items','content_items',2,'p_content_items','responses.py',87),
+  ('content_items -> content_item','content_items',1,'p_content_items','responses.py',88),
+  ('content_item -> contents','content_item',1,'p_content_item','responses.py',92),
+  ('content_item -> FIRST','content_item',1,'p_content_item','responses.py',93),
+  ('content_item -> link','content_item',1,'p_content_item','responses.py',94),
+  ('content_item -> heading','content_item',1,'p_content_item','responses.py',95),
+  ('heading -> H3 CONTENT','heading',2,'p_heading','responses.py',99),
+  ('contents -> CONTENT','contents',1,'p_contents','responses.py',114),
+  ('link -> OPENHREF CONTENT CLOSEHREF','link',3,'p_link','responses.py',125),
+  ('link -> OPENHREF CONTENT CONTENT CONTENT CLOSEHREF','link',5,'p_link','responses.py',126),
+  ('link -> OPENHREF CONTENT CONTENT CLOSEHREF','link',4,'p_link','responses.py',127),
+  ('link -> OPENHREF CLOSEHREF','link',2,'p_link','responses.py',128),
 ]
