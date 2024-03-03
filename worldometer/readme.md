@@ -1,82 +1,60 @@
-Name: Avik Pramanick
-Roll: 23CS60R78
-Web Crawling and Extracting Information-Part1
+# Web Crawling and Information Extraction: COVID-19 Data
 
-OS                      -  linux
-Programming Language    -  Python3
-Status                  -  Running Fine in my system.
+This project is designed to extract and visualize COVID-19 data from various countries and continents. It is developed in Python and tested on Linux, ensuring compatibility with Unix-like operating systems.
 
-Compiling instruction - 
+## Requirements
 
-Keep both task1.py and task2.py at the same directory.
-Because, 
-task1.py is imported in task2.py.
+- **Operating System**: Linux
+- **Programming Language**: Python 3
+- **External Libraries**: matplotlib
 
-While compling task1.py avialble internet connection is required.
+Ensure Python 3 and matplotlib are installed on your system to run this project successfully.
 
---->  python3 task1.py
---->  python3 task2.py
+## Installation
 
-Input Instruction -
+Clone this repository or download the source code to your local machine. Ensure `task1.py` and `task2.py` are located in the same directory since `task2.py` imports `task1.py`.
 
-1) No extra space in command line is not accepted.
-2) For exit , write command: exit
-	Example:
-		exit
-3) For going back, write command:
-	Example:
-		back
+## Running the Project
 
-4) For intial menu selection, menu name/lowercase name/menu no is accepted.
-	Example:
-		1
-		Country
-		country
-		4
-		Query
-		query
-		
-5) For country/continent selection , (country/continent) name / lowercase name / (country/continent) no is accepted.
-	Example:
-		1
-		USA
-		usa
-		17
-		India
-		india
-		
-6) For information type selection , type exact name / type no is accepted.
-	Example:
-		1
-		Total cases
-		2
-		Active cases
-		
-7) For Query type selection , only Query type no is accepted.
-	Example:
-		1
-		2
-		3
-		4
-8) For Query date range input , the input date format is dd-mm-yyyy.
-	Example:
-		01-01-2021
-		1-1-2021
-		
+To start the project, navigate to the directory containing the scripts and run the following commands in your terminal:
 
+1. For web crawling and data extraction:
+   ```
+   python3 task1.py
+   ```
+   Ensure you have an active internet connection for `task1.py` to function correctly.
 
+2. For processing and visualization:
+   ```
+   python3 task2.py
+   ```
 
------------------------------------------------------------------------------------------------------
+## User Guide
 
-Requirements : 
-Python 
-matplotlib
+### Basic Commands
 
-Run main.py to get access to the menu driven program.
-import worldometer_menu and call worldometer_menu.generate_files(country_list.txt) to generate all the files in the respective folders : 
-Results : 
-|----------> active_cases
-|----------> daily_deaths
-|----------> new_cases
-|----------> new_recovered
-(I have included a test.py to show how this works) 
+- To exit the program, type `exit`.
+- To return to the previous menu, type `back`.
+- For initial menu selection, you can use the menu name, its lowercase equivalent, or the menu number.
+
+### Selection Menus
+
+- **Country/Continent Selection**: Input can be the name (case-insensitive) or the number corresponding to the country or continent.
+- **Information Type Selection**: Specify the exact name or number of the information type you're interested in (e.g., Total cases, Active cases).
+- **Query Type Selection**: Input should be the number corresponding to the query type.
+- **Query Date Range**: Input dates in the format `dd-mm-yyyy` or `d-m-yyyy`.
+
+## Generating Data Files
+
+To generate data files for visualization, run `main.py` and use the following command within the Python environment:
+
+```python
+import worldometer_menu
+worldometer_menu.generate_files('country_list.txt')
+```
+
+This will generate data files in the respective folders for active cases, daily deaths, new cases, and new recovered cases.
+
+## Additional Tools
+
+A `test.py` script is included to demonstrate the functionality of the data file generation process.
