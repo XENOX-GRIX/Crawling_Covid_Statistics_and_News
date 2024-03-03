@@ -57,7 +57,7 @@ def menu():
                     first_process = process  # Update first_process to connect subsequent processes
 
                 # Create the last process with the reducer command
-                last_command = f"sort | python combiner.py {start_date} {end_date} | sort |  python reducer.py {start_date} {end_date} {'News.txt'}"
+                last_command = f"sort | python combiner.py {start_date} {end_date} | sort | python reducer.py {start_date} {end_date} {'News.txt'}"
                 last_process = subprocess.Popen(last_command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
 
                 # Wait for the last process to finish and get the output
