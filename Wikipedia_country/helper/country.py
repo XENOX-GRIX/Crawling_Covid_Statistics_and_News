@@ -45,27 +45,26 @@ count = 0
 
 def p_start(p):
     '''start : table'''
-
+my_dict = {}
 def p_dataCell(p):
     '''dataCell : FIRST CONTENT CONTENT SECOND
                 | FIRST CONTENT CONTENT CONTENT SECOND '''
     global parsing_scope
     global count
+    global my_dict
     if parsing_scope and len(p) == 5:
         if any(country in p[2] for country in ('India', 'Australia', 'Malaysia', 'England', 'Singapore')):
             if count <= 63:
                 link = re.search(r'href="([^"]+)"', p[1])
                 if link:
-                    with open('extracted_country_link.txt', 'a+',encoding="utf-8") as link_file:
-                        link_file.write(link.group(1)+'\n')
+                    my_dict[link.group(1)] = 1
                 count += 1
     if parsing_scope and len(p) == 6:
         if any(country in p[2] for country in ('India', 'Australia', 'Malaysia', 'England', 'Singapore')):
             if count <= 63:
                 link = re.search(r'href="([^"]+)"', p[1])
                 if link:
-                    with open('extracted_country_link.txt', 'a+',encoding="utf-8") as link_file:
-                        link_file.write(link.group(1)+'\n')
+                    my_dict[link.group(1)] = 1
                 count += 1
 
 def p_table(p):
@@ -104,13 +103,17 @@ def p_error(p):
 
 #########DRIVER FUNCTION#######
 def crawls():
-    file_obj= open('webpage.html','r',encoding="utf-8")
+    file_obj= open('./Pages/webpage.html','r',encoding="utf-8")
     data=file_obj.read()
     lexer = lex.lex()
     lexer.input(data)
-    wf = open('tokenlist3.txt','w+', encoding="utf-8")
+    wf = open('./Pages/tokenlist.txt','w+', encoding="utf-8")
     for tok in lexer:
         wf.write(str(tok)+'\n')
     parser = yacc.yacc()
     parser.parse(data)
     file_obj.close()
+    global my_dict 
+    for k, v in my_dict.items(): 
+        with open('./Pages/extracted_country_link.txt', 'a+',encoding="utf-8") as link_file:
+            link_file.write(k+'\n')
