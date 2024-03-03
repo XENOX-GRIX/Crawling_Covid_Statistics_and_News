@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 from . import helper
 from . import graph_data
 
-def create_data_selection_window():
+def create_table_window():
     layout = [
         [sg.Text('Choose an option (1-10):')],
         [sg.Listbox(values=['1. Total cases', '2. Active cases', '3. Total deaths', '4. Total recovered',
@@ -17,7 +17,7 @@ def create_data_selection_window():
     ]
     return sg.Window('Data Type Selection', layout)
 
-def create_visualization_selection_window():
+def create_graphical_window():
     layout = [
         [sg.Text('Choose an option for visualization:')],
         [sg.Listbox(values=['1. Active Cases', '2. Daily Death', '3. New Recovered', '4. New Cases'], size=(20, 4), key='-GRAPH_CHOICE-')],
@@ -61,7 +61,7 @@ while True:
             sg.popup('Invalid Country')
         else:
             window.hide()  # Hide the main window
-            window2 = create_data_selection_window()
+            window2 = create_table_window()
             event2, values2 = window2.read()
             if event2 == 'Select':
                 choice2 = values2['-CHOICE2-'][0][0]  # Get the first character of the selection, which is the number
@@ -82,7 +82,7 @@ while True:
             if not os.path.exists(main_path): 
                 helper.page_downloader(country_dict[country][-1], main_path)
             data = graph_data.extract_info(main_path)
-            window2 = create_visualization_selection_window()
+            window2 = create_graphical_window()
             event2, values2 = window2.read()
             window2.close()
 
