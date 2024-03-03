@@ -1,5 +1,5 @@
 
-# Project README
+# Lex Yacc and NoSQL - crawling Covid Statistics and News
 
 ## Overview
 
