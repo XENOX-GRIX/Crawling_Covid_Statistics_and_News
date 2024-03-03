@@ -5,6 +5,14 @@
 
 This project provides a comprehensive toolkit for accessing and analyzing data from Worldometer and Wikipedia, with a focus on tracking and visualizing various statistics related to global health and information trends. It features a command-line interface for easy navigation and data manipulation, as well as a graphical user interface (GUI) for a more interactive experience.
 
+## Installation(Important)
+
+To set up the project environment, ensure Python is installed on your system. This project uses `python` command for execution, rather than `python3`. Ensure all required dependencies are installed by running:
+
+```
+pip install PySimpleGUI
+pip install ply
+```
 ## Part 1: Worldometer
 
 ### Main File
@@ -68,11 +76,3 @@ python -m queries_gui.py
 
 This launches the GUI, allowing users to interact with the query system in a more user-friendly manner.
 
-## Installation
-
-To set up the project environment, ensure Python is installed on your system. This project uses `python` command for execution, rather than `python3`. Ensure all required dependencies are installed by running:
-
-```
-pip install PySimpleGUI
-pip install ply
-```
