@@ -3,7 +3,7 @@ import ply.yacc as yacc
 from urllib.request import Request, urlopen
 import re
 import os
-import helper
+from . import helper
 
 
 import warnings
@@ -129,7 +129,8 @@ def extract_urls():
     url = "https://www.worldometers.info/coronavirus/"
     page = "coronavirus"
     main_path = "./HTML/" + page + ".html"
-    print(helper.page_downloader(url, main_path))
+    if not os.path.exists(main_path):
+        helper.page_downloader(url, main_path)
     global lists
     global l 
     l = []

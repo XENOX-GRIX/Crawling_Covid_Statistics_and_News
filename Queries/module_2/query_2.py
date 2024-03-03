@@ -56,18 +56,18 @@ def menu():
                 file_names = ["../../worldometer/Results/active_cases/"+f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
                 country_name = os.path.splitext(os.path.basename(file_names[0]))[0]
                 
-                first_command = f"python3 mapper.py {file_names[0]} {country_name} "
+                first_command = f"python mapper.py {file_names[0]} {country_name} "
                 first_process = subprocess.Popen(first_command, shell=True, stdout=subprocess.PIPE)
 
                 # Create subsequent processes in a loop, connecting input and output
                 for file_name in file_names[1:]:
                     country_name = os.path.splitext(os.path.basename(file_name))[0]
-                    command = f"python3 combiner.py {start_date} {end_date} && python3 mapper.py {file_name} {country_name}"
+                    command = f"sort | python combiner.py {start_date} {end_date} && python mapper.py {file_name} {country_name}"
                     process = subprocess.Popen(command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
                     first_process = process  # Update first_process to connect subsequent processes
 
                 # Create the last process with the reducer command
-                last_command = f"sort -n | python3 reducer.py {country} {'Active Cases'}"
+                last_command = f"sort | python combiner.py {start_date} {end_date} | python reducer.py {country} {'Active Cases'}"
                 last_process = subprocess.Popen(last_command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
 
                 # Wait for the last process to finish and get the output
@@ -82,18 +82,18 @@ def menu():
                 country_name = os.path.splitext(os.path.basename(file_names[0]))[0]
                 
                 
-                first_command = f"python3 mapper.py {file_names[0]} {country_name} "
+                first_command = f"python mapper.py {file_names[0]} {country_name} "
                 first_process = subprocess.Popen(first_command, shell=True, stdout=subprocess.PIPE)
 
                 # Create subsequent processes in a loop, connecting input and output
                 for file_name in file_names[1:]:
                     country_name = os.path.splitext(os.path.basename(file_name))[0]
-                    command = f"sort -n | python3 combiner.py {start_date} {end_date} && python3 mapper.py {file_name} {country_name}"
+                    command = f"sort -n | python combiner.py {start_date} {end_date} && python mapper.py {file_name} {country_name}"
                     process = subprocess.Popen(command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
                     first_process = process  # Update first_process to connect subsequent processes
 
                 # Create the last process with the reducer command
-                last_command = f"sort-n |  python3 reducer.py {country} {'Daily Deaths'}"
+                last_command = f"sort-n |  python reducer.py {country} {'Daily Deaths'}"
                 last_process = subprocess.Popen(last_command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
 
                 # Wait for the last process to finish and get the output
@@ -107,18 +107,18 @@ def menu():
                 country_name = os.path.splitext(os.path.basename(file_names[0]))[0]
                 
                 
-                first_command = f"python3 mapper.py {file_names[0]} {country_name} "
+                first_command = f"python mapper.py {file_names[0]} {country_name} "
                 first_process = subprocess.Popen(first_command, shell=True, stdout=subprocess.PIPE)
 
                 # Create subsequent processes in a loop, connecting input and output
                 for file_name in file_names[1:]:
                     country_name = os.path.splitext(os.path.basename(file_name))[0]
-                    command = f"python3 combiner.py {start_date} {end_date} && python3 mapper.py {file_name} {country_name}"
+                    command = f"python combiner.py {start_date} {end_date} && python mapper.py {file_name} {country_name}"
                     process = subprocess.Popen(command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
                     first_process = process  # Update first_process to connect subsequent processes
 
                 # Create the last process with the reducer command
-                last_command = f"sort -n | python3 reducer.py {country} {'New Recovered'}"
+                last_command = f"sort -n | python reducer.py {country} {'New Recovered'}"
                 last_process = subprocess.Popen(last_command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
 
                 # Wait for the last process to finish and get the output
@@ -132,18 +132,18 @@ def menu():
                 country_name = os.path.splitext(os.path.basename(file_names[0]))[0]
                 
                 
-                first_command = f"python3 mapper.py {file_names[0]} {country_name} "
+                first_command = f"python mapper.py {file_names[0]} {country_name} "
                 first_process = subprocess.Popen(first_command, shell=True, stdout=subprocess.PIPE)
 
                 # Create subsequent processes in a loop, connecting input and output
                 for file_name in file_names[1:]:
                     country_name = os.path.splitext(os.path.basename(file_name))[0]
-                    command = f"python3 combiner.py {start_date} {end_date} && python3 mapper.py {file_name} {country_name}"
+                    command = f"python combiner.py {start_date} {end_date} && python mapper.py {file_name} {country_name}"
                     process = subprocess.Popen(command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
                     first_process = process  # Update first_process to connect subsequent processes
 
                 # Create the last process with the reducer command
-                last_command = f"sort -n | python3 reducer.py {country} {'New Cases'}"
+                last_command = f"sort -n | python reducer.py {country} {'New Cases'}"
                 last_process = subprocess.Popen(last_command, shell=True, stdin=first_process.stdout, stdout=subprocess.PIPE)
 
                 # Wait for the last process to finish and get the output

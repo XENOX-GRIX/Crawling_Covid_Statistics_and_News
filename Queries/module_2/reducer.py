@@ -24,7 +24,7 @@ for line in sys.stdin:
         my_dict[country] = cases
 
 
-print(f"{'Decrease' if my_dict[Country]<0 else 'Increase'} in {sys.argv[2]} for {Country} : {abs(my_dict[Country])}%")
+print(f"{'Decrease' if my_dict[Country]<0 else 'Increase'} in {sys.argv[2]} {sys.argv[3]} for {Country} : {abs(my_dict[Country])}%")
 difference = 99999999999
 similar = ""
 Percentage = 0 
