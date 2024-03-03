@@ -1,5 +1,5 @@
-Author-Avik Pramanick, 
-Roll-23CS60R78.
+## Author-Avik Pramanick, 
+## Roll-23CS60R78.
 
 # Web Crawling and Information Extraction: COVID-19 Data
 
@@ -9,7 +9,7 @@ This project is designed to extract and visualize COVID-19 data from various cou
 
 - **Operating System**: Linux
 - **Programming Language**: Python 3
-- **External Libraries**: matplotlib
+- **External Libraries**: matplotlib, ply
 
 Ensure Python 3 and matplotlib are installed on your system to run this project successfully.
 
