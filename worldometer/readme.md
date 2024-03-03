@@ -1,3 +1,6 @@
+Author-Avik Pramanick, 
+Roll-23CS60R78
+
 # Web Crawling and Information Extraction: COVID-19 Data
 
 This project is designed to extract and visualize COVID-19 data from various countries and continents. It is developed in Python and tested on Linux, ensuring compatibility with Unix-like operating systems.
