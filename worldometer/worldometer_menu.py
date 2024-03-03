@@ -1,8 +1,8 @@
-import graph_data
-import url_fetcher
-import table_data
+from . import graph_data
+from . import url_fetcher
+from . import table_data
 import os 
-import helper
+from . import helper
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
@@ -59,7 +59,8 @@ def menu(my_dict):
             else :
                 page = country.replace(" ", "-")
                 main_path = "./HTML/" + page + ".html"
-                helper.page_downloader(my_dict[country][-1], main_path)
+                if not os.path.exists(main_path): 
+                    helper.page_downloader(my_dict[country][-1], main_path)
                 data = graph_data.extract_info(main_path)
                 while choice == '2':
                     choice2 = input(
@@ -235,7 +236,8 @@ def generate_files(file):
     for name in country_list : 
         page = name.replace(" ", "-")
         main_path = "./HTML/" + page + ".html"
-        helper.page_downloader(country_data[name][-1], main_path)
+        if not os.path.exists(main_path):
+            helper.page_downloader(country_data[name][-1], main_path)
         data = graph_data.extract_info(main_path)
         if "cases" in data :
             start_date = datetime(2020, 2, 15)
@@ -273,6 +275,19 @@ def generate_files(file):
                 f.write(str(current_date.strftime('%Y-%m-%d')) + "\t" + d)
                 f.write("\n")
             f.close
+
+def run():
+    if not os.path.exists("./HTML"):
+        os.mkdir("./HTML")
+    if not os.path.exists("./Results"):
+        os.mkdir("./Results")
+    t_data = table_data.extract_table()
+    url_data =url_fetcher.extract_urls()
+    country_data = {}
+    for i in range(len(t_data)): 
+        country_data[str(t_data[i][1]).strip().lower()] = t_data[i]
+        country_data[str(t_data[i][1]).strip().lower()].append(url_data[i])
+    return country_data 
 
 if __name__ == '__main__':
     if not os.path.exists("./HTML"):

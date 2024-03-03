@@ -1,9 +1,9 @@
-import ply.lex as lex
+import ply.lex as lex 
 import ply.yacc as yacc
 from urllib.request import Request, urlopen
 import re
 import os
-import helper
+from . import helper
 
 
 import warnings
