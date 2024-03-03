@@ -89,7 +89,7 @@ def create_wikipedia_window():
         [sg.Text('Enter Country Name:'), sg.InputText(key='-COUNTRY-')],
         [sg.Text('Enter Start Date [dd-mm-yyyy format]:'), sg.InputText(key='-STARTDATE-')],
         [sg.Text('Enter End Date [dd-mm-yyyy format]:'), sg.InputText(key='-ENDDATE-')],
-        [sg.Text('Choose an option (1-10):')],
+        [sg.Text('Choose an option (1-4):')],
         [sg.Listbox(values=["1. Change in active cases in %",
                             "2. Change in daily death in %",
                             "3. Change in new recovered in %",
@@ -298,7 +298,7 @@ while True :
             end_date = format_date(end_date) 
 
             choice2 = values2['-CHOICE2-'][0][0]
-            if start_date > end_date or not (choice2.isdigit() and 1 <= int(choice2) <= 4) :
+            if start_date > end_date or not (choice2.isdigit() and 1 <= int(choice2) <= 2) :
                 sg.popup('Invalid Inputs')
                 break
             print(choice2)
